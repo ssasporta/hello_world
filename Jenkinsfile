@@ -17,11 +17,13 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying'
-                sh 'ssh -i "clouderide-kp.pem" ec2-user@10.0.1.1 rm -rf /var/cloud/temp_deploy/Hello_World/'
-                sh 'ssh -i "clouderide-kp.pem" ec2-user@10.0.1.1 mkdir -p /var/cloud/temp_deploy'
-                sh 'scp -i "clouderide-kp.pem" -r Hello_World ec2-user@10.0.1.1:/var/cloud/temp_deploy/Hello_World/'
+                echo "$USER"
+                sh 'ssh -i "~/.ssh/clouderide-kp.pem" ec2-user@10.0.1.1 rm -rf app/cloud/temp_deploy/Hello_World/'
+                sh 'ssh -i "~/.ssh/clouderide-kp.pem"  ec2-user@10.0.1.1 mkdir -p app/cloud/temp_deploy'
+                sh 'scp -i "~/.ssh/clouderide-kp.pem"  -r Hello_World ec2-user@10.0.1.1:app/cloud/temp_deploy/Hello_World/'
 
-                sh 'ssh -i "clouderide-kp.pem" ec2-user@10.0.1.1 "rm -rf /var/app/demo/Hello_World/ && mv /var/cloud/temp_deploy/Hello_World/ /var/app/demo/Hello_World/"'
+                    sh 'ssh -i "~/.ssh/clouderide-kp.pem"  ec2-user@10.0.1.1 "rm -rf app/app/demo/Hello_World/ && mv app/cloud/temp_deploy/Hello_World/ app/demo/Hello_World/"'
+
             }
         }
     }
