@@ -5,8 +5,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building'
-                sh 'python --version'
-                sh 'python -m py_compile sources/app.py'
+                sh 'python3 --version'
+                sh 'python3 -m py_compile Hello_World/app.py'
             }
         }
         stage('Test') {
